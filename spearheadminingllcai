@@ -1,0 +1,47 @@
+import requests
+
+class SpearHeadMining:
+    def __init__(self):
+        self.api_key = "sk-proj-ZHbtfbAR7prPt3DmgzKGT3BlbkFJEp922UoJr3UTIDvczXnU"  # API Key is set directly here
+        self.base_url = "https://api.openai.com/v1/"
+
+    def detect_minerals(self, image_file):
+        # Upload the image to your server or cloud storage
+        image_url = self.upload_image(image_file)
+
+        # Call OpenAI API for mineral detection
+        result = self.detect_minerals_with_ai(image_url)
+
+        return result
+
+    def upload_image(self, image_file):
+        # Code to upload image to your server or cloud storage
+        # Replace this with your actual implementation
+        image_url = "https://example.com/path/to/uploaded/image"
+        return image_url
+
+    def detect_minerals_with_ai(self, image_url):
+        # Call OpenAI API to analyze the image
+        headers = {
+            "Authorization": "Bearer " + self.api_key,
+            "Content-Type": "application/json"
+        }
+        data = {
+            "image": image_url,
+            # Add any other parameters required by the OpenAI API
+        }
+        response = requests.post(self.base_url + "ai/mineral-detection", json=data, headers=headers)
+
+        if response.status_code == 200:
+            result = response.json()
+            return result
+        else:
+            print("Error:", response.status_code)
+            return None
+
+# Example usage:
+if __name__ == "__main__":
+    spear_head_mining = SpearHeadMining()
+    image_file = "path/to/your/image.jpg"
+    result = spear_head_mining.detect_minerals(image_file)
+    print(result)
